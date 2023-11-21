@@ -57,9 +57,6 @@ extern "C"
         PyTuple_SetItem(args, 1, PyLong_FromLong(2));
         PyObject *result = PyObject_CallMethod(p, "add", "OO", PyLong_FromLong(1), PyLong_FromLong(2));
         std::cout << PyLong_AsLong(result) << std::endl;
-        // cast p to MyClass
-        // MyClass *myClass = reinterpret_cast<MyClass *>(p);
-        // std::cout << myClass->add(1, 2) << std::endl;
 
         /* Clean up after using CPython. */
         PyMem_RawFree(program);
