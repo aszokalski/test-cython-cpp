@@ -7,11 +7,11 @@ public:
     MyClass(){
 
     }
-    ~MyClass(){
+    virtual ~MyClass(){
 
     }
 
-    int add(int a, int b){
+    virtual int add(int a, int b){
         return a + b;
     }
 };
@@ -20,10 +20,9 @@ public:
 
 from cppyy.gbl import MyClass
 
-class MyClassEdited(MyClass):
-    def add(a, b):
-        # sub
-        return a - b
+class MyClassAltered(MyClass):
+    def add(self, a, b):
+        return a + b + 1
 
 cdef public object createMyClass():
-    return MyClassEdited()
+    return MyClassAltered()

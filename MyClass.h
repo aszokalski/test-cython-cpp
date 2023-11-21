@@ -3,14 +3,14 @@
 class MyClass
 {
 public:
-    MyClass(){
-
+    MyClass()
+    {
     }
-    ~MyClass(){
-
+    virtual ~MyClass()
+    {
     }
 
-    int add(int a, int b){
-        return a + b;
-    }
+    int add(int a, int b);
+
+    int sub(int a, int b);
 };
