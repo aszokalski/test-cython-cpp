@@ -34,13 +34,6 @@ main(int argc, char *argv[])
        If this step fails, it will be a fatal error. */
     Py_Initialize();
 
-    PyObject* sysPath = PySys_GetObject("path");
-    // cout syspath
-    for (int i = 0; i < PyList_Size(sysPath); i++) {
-        PyObject* item = PyList_GetItem(sysPath, i);
-        std::cout << PyUnicode_AsUTF8(item) << std::endl;
-    }
-
     /* Optionally import the module; alternatively,
        import can be deferred until the embedded script
        imports it. */

@@ -15,10 +15,10 @@ if(Python_FOUND)
     # Add the path to the Python library
     link_directories(${Python_LIBRARY_DIRS})
 
-    # Add a custom command to generate test.c and test.h from test.pyx
+    # generate test.c and test.h from test.pyx
     add_custom_command(
         OUTPUT test.c test.h
-        COMMAND conda run python -m cython test.pyx
+        COMMAND python3 -m cython test.pyx
         DEPENDS test.pyx
     )
 
@@ -28,6 +28,18 @@ if(Python_FOUND)
     message(STATUS "Python include dirs: ${Python_LIBRARIES}")
     # Link against the Python library
     target_link_libraries(my_program PRIVATE ${Python_LIBRARIES})
+
+    # Add custom command to install dependencies using pip3
+    add_custom_target(install_dependencies
+        COMMAND pip3 install -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    # Add the custom command as a dependency to the my_program target
+    add_dependencies(my_program install_dependencies)
+
+    # Make install_dependencies run when invoking cmake .
+    add_custom_target(build_all DEPENDS install_dependencies my_program)
 else()
     message(FATAL_ERROR "Python not found. Please make sure Python is installed.")
 endif()
